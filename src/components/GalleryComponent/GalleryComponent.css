@@ -1,0 +1,15 @@
+.select-sort{
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+
+.span-sort{
+    position: relative;
+    font-size: 16px;
+    padding: 0 10px;
+    color: #007bff;
+    background-color: #fff;
+    left: 10px; /* Position the "Sort" text outside the button */
+    transform: translate(45px, -23px); /* Adjust the position */
+}

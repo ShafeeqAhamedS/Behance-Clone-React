@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { AiFillFolderOpen } from 'react-icons/ai';
 import { behanceItem } from '../../data';
-import { BiFilter, BiSearch, BiImage } from 'react-icons/bi';
 import { AiTwotoneLike } from "react-icons/ai";
 import { PiEyeDuotone } from "react-icons/pi";
+import { IoFilterSharp } from "react-icons/io5";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import './GalleryComponent.css';
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -64,52 +64,64 @@ const TestComponent = () => {
       console.log(result);
   };
 
+
   return (
       <>
+            
           <section>
               <div className="container-fluid px-4 mt-14">
-                  <div className='w-2/6 px-14'>
-                      <form onSubmit={handleSearchSubmit}>
-                          <ReactSearchAutocomplete
-                              items={extractedData}
-                              fuseOptions={{ keys: ["text"] }}
-                              resultStringKeyName="text"
-                              onSearch={handleOnSearch}
-                              onSelect={handleOnSelect}
-                              onClear={() => setSearchString('')}
-                              onEnter={handleOnEnter}
-                              maxResults={5}
-                              showIcon={false}
-                              placeholder={"Search the creative world at work"}
-                              styling={{
-                                  zIndex: "100",
-                                  height: "40px",
-                                  border: "1px solid #dfe1e5",
-                                  borderRadius: "24px",
-                                  backgroundColor: "white",
-                                  boxShadow: "rgba(32, 33, 36, 0.28) 0px 1px 6px 0px",
-                                  hoverBackgroundColor: "#eee",
-                                  color: "#212121",
-                                  fontSize: "16px",
-                                  fontFamily: "Arial",
-                                  iconColor: "grey",
-                                  lineColor: "rgb(232, 234, 237)",
-                                  placeholderColor: "grey",
-                                  clearIconMargin: '3px 14px 0 0',
-                                  searchIconMargin: '0 0 0 16px'
-                              }}
-                          />
-                      </form>
-                  </div>
-                  <div className="dropdown mt-4">
-                      <label htmlFor="sortDropdown" className="mr-2">Sort By: </label>
-                      <select id="sortDropdown" value={sortCriteria} onChange={handleSortChange}>
-                          <option value="recommended">Recommended</option>
-                          <option value="mostliked">Most Liked</option>
-                          <option value="mostviewed">Most Viewed</option>
-                      </select>
-                  </div>
-                  <div className="grid md:grid-cols-3 md:py-16 lg:grid-cols-5 sm:grid-cols-2 gap-3 mt-4">
+                <div className="flex items-center mt-16 ">
+                    <div className="flex items-center border rounded-full px-7 py-2 w-fit text-center text-lg font-semibold">
+                        <IoFilterSharp className='pr-3 w-max'/>
+                        <span>Filter</span>
+                    </div>
+                    <div className='w-2/3 px-14'>
+                        <form onSubmit={handleSearchSubmit}>
+                            <ReactSearchAutocomplete
+                                items={extractedData}
+                                fuseOptions={{ keys: ["text"] }}
+                                resultStringKeyName="text"
+                                onSearch={handleOnSearch}
+                                onSelect={handleOnSelect}
+                                onClear={() => setSearchString('')}
+                                onEnter={handleOnEnter}
+                                maxResults={5}
+                                showIcon={false}
+                                placeholder={"Search the creative world at work"}
+                                styling={{
+                                    zIndex: "100",
+                                    height: "40px",
+                                    border: "1px solid #dfe1e5",
+                                    borderRadius: "24px",
+                                    backgroundColor: "white",
+                                    boxShadow: "rgba(32, 33, 36, 0.28) 0px 1px 6px 0px",
+                                    hoverBackgroundColor: "#eee",
+                                    color: "#212121",
+                                    fontSize: "16px",
+                                    fontFamily: "Arial",
+                                    iconColor: "grey",
+                                    lineColor: "rgb(232, 234, 237)",
+                                    placeholderColor: "grey",
+                                    clearIconMargin: '3px 14px 0 0',
+                                    searchIconMargin: '0 0 0 16px'
+                                }}
+                            />
+                        </form>
+                    </div>
+                    <div className="recm-item dropdown w-40">
+                        <div className="flex items-center">
+                            <span className=' span-sort text-xs font-bold text-[#626161]'>Sort</span>
+                            <div className="sort-wrapper">
+                            <select class="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
+                                <option value="recommended">Recommended</option>
+                                <option value="mostliked">Most Liked</option>
+                                <option value="mostviewed">Most Viewed</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <div className="grid md:grid-cols-3 lg:grid-cols-5 sm:grid-cols-2 gap-3 mt-4">
                       {filteredItems.length > 0 ? (
                           filteredItems.map((item) => (
                               <div key={item.id} className="category-item cursor-pointer">
