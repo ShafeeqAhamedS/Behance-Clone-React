@@ -7,9 +7,22 @@ import { AiTwotoneLike } from "react-icons/ai";
 import { PiEyeDuotone } from "react-icons/pi";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
+const sortItems = (items, criteria) => {
+    if (criteria === 'recommended') {
+        return [...items].sort(() => Math.random() - 0.5);
+    } else if (criteria === 'mostliked') {
+        return [...items].sort((a, b) => b.likes - a.likes);
+    } else if (criteria === 'mostviewed') {
+        return [...items].sort((a, b) => b.watches - a.watches);
+    } else {
+        return items;
+    }
+};
+
 const GalleryComponent = () => {
     const [filteredItems, setFilteredItems] = useState(behanceItem);
     const [searchString, setSearchString] = useState('');
+    const [sortCriteria, setSortCriteria] = useState('recommended');
 
     const extractedData = behanceItem.map(item => ({
         id: item.id,
@@ -17,9 +30,6 @@ const GalleryComponent = () => {
     }));
 
     const handleOnSearch = (string) => {
-        if (!string) {
-            setFilteredItems(behanceItem);
-        }
         setSearchString(string);
     };
 
@@ -35,6 +45,12 @@ const GalleryComponent = () => {
             item.text.toLowerCase().includes(searchString.toLowerCase())
         );
         setFilteredItems(filtered);
+    };
+
+    const handleSortChange = (e) => {
+        const newCriteria = e.target.value;
+        setSortCriteria(newCriteria);
+        setFilteredItems(sortItems(filteredItems, newCriteria));
     };
 
     const handleOnHover = (result) => {
@@ -77,6 +93,14 @@ const GalleryComponent = () => {
                                 if (e.key === 'Enter') handleOnEnter();
                             }}
                         />
+                    </div>
+                    <div className="dropdown">
+                        <label htmlFor="sortDropdown" className="mr-2">Sort By: </label>
+                        <select id="sortDropdown" value={sortCriteria} onChange={handleSortChange}>
+                            <option value="recommended">Recommended</option>
+                            <option value="mostliked">Most Liked</option>
+                            <option value="mostviewed">Most Viewed</option>
+                        </select>
                     </div>
                     <div className="grid md:grid-cols-3 md:py-16 lg:grid-cols-5 sm:grid-cols-2 gap-3">
                         {filteredItems.map((item) => (

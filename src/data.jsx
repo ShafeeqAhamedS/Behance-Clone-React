@@ -116,7 +116,7 @@ export const behanceItem = [
     {
         id: 5,
         img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        text: 'Innovative Package Design',
+        text: 'Minimalist Logo Collection',
         likes: '89',
         watches: '710',
         user: 'Design Lab'
