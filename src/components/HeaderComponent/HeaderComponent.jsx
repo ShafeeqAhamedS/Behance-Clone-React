@@ -9,7 +9,7 @@ import './HeaderComponent.css'
 const HeaderComponent = () => {
   return (
     <div>
-        <header>
+        <header className='fixed w-full z-10'>
             <div className="container-fluid bg-white">
                 <div className="top-header py-2 px-5 border-b border flex justify-between ">
                     <div className="navbar flex items-center ">
@@ -34,7 +34,7 @@ const HeaderComponent = () => {
                                 </li>
                                 <li className='mx-2 font-semibold text-sm'><a href="http://" target="_blank" rel="noopener noreferrer">Assets</a></li>
                                 <li className='mx-2 font-semibold text-sm'><a href="http://" target="_blank" rel="noopener noreferrer">Jobs</a></li>
-                                <li className='mx-2 font-semibold text-sm behance'>
+                                <li className='mx-2 font-semibold text-sm'>
                                     <a href="http://" target="_blank" rel="noopener noreferrer" className='flex items-center'>
                                         Behance
                                         <a className="pro-btn rounded-md font-bold border mx-2" href="">PRO</a>
@@ -60,13 +60,13 @@ const HeaderComponent = () => {
                     </div>
                     <div className="action-area flex items-center">
                         <BiSolidBell className='mx-2'/>
-                        <div className="text-sm login-btn rounded-full font-bold border px-3 py-1 mx-1">
+                        <div className="text-sm login-btn rounded-full font-bold border px-3 py-1 mx-1 sm:max-lg:text-xs lg:max-2xl:text-sm">
                             <a href="" className='font-bold'>Log In</a>
                         </div>
-                        <div className="signup-btn rounded-full font-bold border px-3 py-1 mx-1">
+                        <div className="signup-btn rounded-full font-bold border px-3 py-1 mx-1 sm:max-lg:text-xs lg:max-2xl:text-sm">
                             <a href="">Sign Up</a>
                         </div>
-                        <div className="adobe-btn mx-3">
+                        <div className="adobe-btn mx-3 sm:max-lg:text-xs lg:max-2xl:text-sm">
                             <a href="http://" target="_blank" rel="noopener noreferrer" className='flex items-center hover:opacity-70'>
                                 <img src={adobeLogo} alt={adobeLogo} className='w-4 h-4 mx-1'/>
                                 <p className='font-bold text-xs'>Adobe</p>

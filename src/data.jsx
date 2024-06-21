@@ -74,124 +74,99 @@ export const searchType = [
 
 export const behanceItem = [
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 0,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
+        text: 'Artistic Poster Design',
+        likes: '75',
+        watches: '340',
+        user: 'Creative Mind'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 1,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        text: 'Modern Web Interface',
+        likes: '102',
+        watches: '890',
+        user: 'Design Guru'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 2,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
+        text: 'Minimalist Logo Collection',
+        likes: '58',
+        watches: '470',
+        user: 'Artistic Vision'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 3,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
+        text: 'Freeze-dried Cat Treats—Wanpy',
+        likes: '51',
+        watches: '580',
+        user: 'Reshoka Designs'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 4,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        text: 'Brand Identity for Startups',
+        likes: '65',
+        watches: '520',
+        user: 'Creative Works'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 5,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
+        text: 'Innovative Package Design',
+        likes: '89',
+        watches: '710',
+        user: 'Design Lab'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 6,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
+        text: 'Urban Photography',
+        likes: '44',
+        watches: '290',
+        user: 'Photo Genius'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 7,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        text: 'Futuristic UI Concepts',
+        likes: '72',
+        watches: '610',
+        user: 'UI Expert'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 8,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
+        text: 'Creative Illustration Art',
+        likes: '63',
+        watches: '450',
+        user: 'Art Studio'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 9,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
+        text: 'Fashion Photography',
+        likes: '94',
+        watches: '830',
+        user: 'Fashion Lens'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
+        id: 10,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        text: 'Graphic',
+        likes: '57',
+        watches: '410',
+        user: 'Design Trends'
     },
     {
-        fePatch: 'https://a5.behance.net/eb6198339b5bd9210ee85c5041d2da69b52ae5a5/img/galleries/icons/ribbons/1x/graphic-design.png?cb=264615658',
-        featureImg: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        featureTxt: 'Freeze-dried Cat Treats—Wanpy',
-        feLike: '51',
-        felikeIcons: <AiFillLike />,
-        feWatch: '580',
-        fewatchIcon: <AiTwotoneEye />,
-        feUser: 'Reshoka'
-    },
-    
-]
+        id: 11,
+        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
+        text: 'Digital',
+        likes: '76',
+        watches: '540',
+        user: 'Digital Artist'
+    }
+];
