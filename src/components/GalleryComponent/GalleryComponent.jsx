@@ -75,7 +75,7 @@ const TestComponent = () => {
                         <IoFilterSharp className='pr-3 w-max'/>
                         <span>Filter</span>
                     </div>
-                    <div className='w-2/3 px-14'>
+                    <div className='w-11/12 px-5'>
                         <form onSubmit={handleSearchSubmit}>
                             <ReactSearchAutocomplete
                                 items={extractedData}
@@ -86,7 +86,7 @@ const TestComponent = () => {
                                 onClear={() => setSearchString('')}
                                 onEnter={handleOnEnter}
                                 maxResults={5}
-                                showIcon={false}
+                                showIcon={true}
                                 placeholder={"Search the creative world at work"}
                                 styling={{
                                     zIndex: "100",
@@ -94,23 +94,24 @@ const TestComponent = () => {
                                     border: "1px solid #dfe1e5",
                                     borderRadius: "24px",
                                     backgroundColor: "white",
-                                    boxShadow: "rgba(32, 33, 36, 0.28) 0px 1px 6px 0px",
+                                    boxShadow: "none",
                                     hoverBackgroundColor: "#eee",
                                     color: "#212121",
                                     fontSize: "16px",
-                                    fontFamily: "Arial",
+                                    fontFamily: "Poppins",
                                     iconColor: "grey",
                                     lineColor: "rgb(232, 234, 237)",
-                                    placeholderColor: "grey",
-                                    clearIconMargin: '3px 14px 0 0',
-                                    searchIconMargin: '0 0 0 16px'
+                                    placeholderColor: "black",
+                                    clearIconMargin: '0px 10px',
+                                    searchIconMargin: '0 0 0 20px'
                                 }}
+                                className='search'
                             />
                         </form>
                     </div>
-                    <div className="recm-item dropdown w-40">
+                    <div className="recm-item dropdown">
                         <div className="flex items-center">
-                            <span className=' span-sort text-xs font-bold text-[#626161]'>Sort</span>
+                            <span className='span-sort text-xs font-bold text-[#626161]'>Sort</span>
                             <div className="sort-wrapper">
                             <select class="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
                                 <option value="recommended">Recommended</option>
