@@ -1,13 +1,6 @@
-import { SiAdobecreativecloud } from 'react-icons/si';
-import { FaTools } from 'react-icons/fa';
-import { HiColorSwatch } from 'react-icons/hi';
-import { IoLocationSharp } from 'react-icons/io5';
-import { MdSchool } from 'react-icons/md';
-import { IoMdAttach } from 'react-icons/io';
-import { BsCreditCard2BackFill } from 'react-icons/bs';
-import { AiFillLike } from 'react-icons/ai';
-import { AiTwotoneEye } from 'react-icons/ai';
-
+import img1 from './assets/gallery/img1.png'
+import aot_fortnite from './assets/gallery/aot_fortnite.png'
+import mikasa from './assets/gallery/mikasa.jpg'
 
 
 
@@ -75,7 +68,7 @@ export const searchType = [
 export const behanceItem = [
     {
         id: 0,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/24806c126581961.Y3JvcCwxMzgwLDEwODAsMjU2LDA.jpg',
+        img_url: img1,
         text: 'Artistic Poster Design',
         likes: '75',
         watches: '340',
@@ -83,18 +76,18 @@ export const behanceItem = [
     },
     {
         id: 1,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
-        text: 'Modern Web Interface',
-        likes: '102',
-        watches: '890',
-        user: 'Design Guru'
+        img_url: aot_fortnite,
+        text: 'Attack on Titan x Fortnite',
+        likes: '253',
+        watches: '654',
+        user: 'Shafeeq Ahamed'
     },
     {
         id: 2,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/aadca8140674779.Y3JvcCwxMzgwLDEwODAsMjQyLDA.jpg',
-        text: 'Minimalist Logo Collection',
-        likes: '58',
-        watches: '470',
+        img_url: mikasa,
+        text: 'GOAT Mikasa',
+        likes: '15054',
+        watches: '654608',
         user: 'Artistic Vision'
     },
     {
@@ -107,7 +100,7 @@ export const behanceItem = [
     },
     {
         id: 4,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        img_url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a83ff4198066457.66559c18f2ba7.png',
         text: 'Brand Identity for Startups',
         likes: '65',
         watches: '520',
@@ -131,7 +124,7 @@ export const behanceItem = [
     },
     {
         id: 7,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        img_url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a83ff4198066457.66559c18f2ba7.png',
         text: 'Futuristic UI Concepts',
         likes: '72',
         watches: '610',
@@ -155,7 +148,7 @@ export const behanceItem = [
     },
     {
         id: 10,
-        img_url: 'https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4468e2158061195.Y3JvcCw0MzE0LDMzNzUsMjg4LDA.jpg',
+        img_url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a83ff4198066457.66559c18f2ba7.png',
         text: 'Graphic',
         likes: '57',
         watches: '410',
