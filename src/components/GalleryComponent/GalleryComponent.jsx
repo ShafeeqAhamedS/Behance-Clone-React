@@ -4,6 +4,7 @@ import { AiTwotoneLike } from "react-icons/ai";
 import { PiEyeDuotone } from "react-icons/pi";
 import { IoFilterSharp } from "react-icons/io5";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { FaUserCircle } from "react-icons/fa";
 import './GalleryComponent.css';
 
 const sortItems = (items, criteria) => {
@@ -67,10 +68,12 @@ const GalleryComponent = () => {
 
     const openOverlay = (item) => {
         setSelectedItem(item);
+        document.body.classList.add('overlay-open');
     };
 
     const closeOverlay = () => {
         setSelectedItem(null);
+        document.body.classList.remove('overlay-open');
     };
 
     useEffect(() => {
@@ -183,13 +186,20 @@ const GalleryComponent = () => {
             </section>
 
             {selectedItem && (
-                <div className="overlay visible" onClick={closeOverlay}>
-                    <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
-                        <h4>{selectedItem.text}</h4>
-                        <p>{selectedItem.user}</p>
-                        <p>Likes: {selectedItem.likes}</p>
-                        <p>Views: {selectedItem.watches}</p>
-                        <button onClick={closeOverlay}>Close</button>
+                <div className="overlay visible flex justify-end items-center w-full h-full fixed" onClick={closeOverlay}>
+                    <div className="overlay-content h-full w-[95%]" onClick={(e) => e.stopPropagation()}>
+                        <div className="overlay-header flex items-center">
+                            <div className="overlay-user bg-current w-12 h-12 rounded-full "></div>
+                            <div className="overlay-user-data">
+                                <p className='text-base font-bold'>{selectedItem.text}</p>
+                                <p className='text-xs'>{selectedItem.user} •Follow</p>
+                            </div>
+                        </div>
+                        <div className="overlay-text flex justify-evenly">
+                            <p>Likes: {selectedItem.likes}</p>
+                            <p>Views: {selectedItem.watches}</p>
+                            <button onClick={closeOverlay}>Close</button>
+                        </div>
                         <img src={selectedItem.img_url} alt={selectedItem.text} />
                     </div>
                 </div>
