@@ -18,150 +18,184 @@ const sortItems = (items, criteria) => {
     }
 };
 
-const TestComponent = () => {
-  const [filteredItems, setFilteredItems] = useState(behanceItem);
-  const [searchString, setSearchString] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('recommended');
+const GalleryComponent = () => {
+    const [filteredItems, setFilteredItems] = useState(behanceItem);
+    const [searchString, setSearchString] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortCriteria, setSortCriteria] = useState('recommended');
+    const [selectedItem, setSelectedItem] = useState(null);
 
-  const extractedData = behanceItem.map(item => ({
-      id: item.id,
-      text: item.text
-  }));
+    const extractedData = behanceItem.map(item => ({
+        id: item.id,
+        text: item.text
+    }));
 
-  useEffect(() => {
-      const filtered = behanceItem.filter(item =>
-          item.text.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredItems(sortItems(filtered, sortCriteria));
-  }, [searchTerm, sortCriteria]);
+    useEffect(() => {
+        const filtered = behanceItem.filter(item =>
+            item.text.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredItems(sortItems(filtered, sortCriteria));
+    }, [searchTerm, sortCriteria]);
 
-  const handleOnSearch = (string) => {
-      if (string === '') {
-          setFilteredItems(behanceItem);
-      }
-      setSearchString(string);
-  };
+    const handleOnSearch = (string) => {
+        if (string === '') {
+            setFilteredItems(behanceItem);
+        }
+        setSearchString(string);
+    };
 
-  const handleOnSelect = (item) => {
-      setSearchTerm(item.text);
-  };
+    const handleOnSelect = (item) => {
+        setSearchTerm(item.text);
+    };
 
-  const handleOnEnter = (string) => {
-      setSearchTerm(string);
-  };
+    const handleOnEnter = (string) => {
+        setSearchTerm(string);
+    };
 
-  const handleSortChange = (e) => {
-      setSortCriteria(e.target.value);
-  };
+    const handleSortChange = (e) => {
+        setSortCriteria(e.target.value);
+    };
 
-  const handleSearchSubmit = (e) => {
-      e.preventDefault();
-      setSearchTerm(searchString);
-  };
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        setSearchTerm(searchString);
+    };
 
-  const handleOnHover = (result) => {
-      console.log(result);
-  };
+    const handleOnHover = (result) => {
+        console.log(result);
+    };
 
+    const openOverlay = (item) => {
+        setSelectedItem(item);
+    };
 
-  return (
-      <>
-            
-          <section>
-              <div className="container-fluid px-4 mt-14">
-                <div className="flex items-center mt-16 ">
-                    <div className="flex items-center border rounded-full px-7 py-2 w-fit text-center text-lg font-semibold">
-                        <IoFilterSharp className='pr-3 w-max'/>
-                        <span>Filter</span>
-                    </div>
-                    <div className='w-11/12 px-5'>
-                        <form onSubmit={handleSearchSubmit}>
-                            <ReactSearchAutocomplete
-                                items={extractedData}
-                                fuseOptions={{ keys: ["text"] }}
-                                resultStringKeyName="text"
-                                onSearch={handleOnSearch}
-                                onSelect={handleOnSelect}
-                                onClear={() => setSearchString('')}
-                                onEnter={handleOnEnter}
-                                maxResults={5}
-                                showIcon={true}
-                                placeholder={"Search the creative world at work"}
-                                styling={{
-                                    zIndex: "100",
-                                    height: "40px",
-                                    border: "1px solid #dfe1e5",
-                                    borderRadius: "24px",
-                                    backgroundColor: "white",
-                                    boxShadow: "none",
-                                    hoverBackgroundColor: "#eee",
-                                    color: "#212121",
-                                    fontSize: "16px",
-                                    fontFamily: "Poppins",
-                                    iconColor: "grey",
-                                    lineColor: "rgb(232, 234, 237)",
-                                    placeholderColor: "black",
-                                    clearIconMargin: '0px 10px',
-                                    searchIconMargin: '0 0 0 20px'
-                                }}
-                                className='search'
-                            />
-                        </form>
-                    </div>
-                    <div className="recm-item dropdown">
-                        <div className="flex items-center">
-                            <span className='span-sort text-xs font-bold text-[#626161]'>Sort</span>
-                            <div className="sort-wrapper">
-                            <select class="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
-                                <option value="recommended">Recommended</option>
-                                <option value="mostliked">Most Liked</option>
-                                <option value="mostviewed">Most Viewed</option>
-                            </select>
+    const closeOverlay = () => {
+        setSelectedItem(null);
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closeOverlay();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+    return (
+        <>
+            <section>
+                <div className="container-fluid px-4 mt-14">
+                    <div className="flex items-center mt-16">
+                        <div className="flex items-center border rounded-full px-7 py-2 w-fit text-center text-lg font-semibold">
+                            <IoFilterSharp className='pr-3 w-max'/>
+                            <span>Filter</span>
+                        </div>
+                        <div className='w-11/12 px-5'>
+                            <form onSubmit={handleSearchSubmit}>
+                                <ReactSearchAutocomplete
+                                    items={extractedData}
+                                    fuseOptions={{ keys: ["text"] }}
+                                    resultStringKeyName="text"
+                                    onSearch={handleOnSearch}
+                                    onSelect={handleOnSelect}
+                                    onClear={() => setSearchString('')}
+                                    onEnter={handleOnEnter}
+                                    maxResults={5}
+                                    showIcon={true}
+                                    placeholder={"Search the creative world at work"}
+                                    styling={{
+                                        zIndex: "100",
+                                        height: "40px",
+                                        border: "1px solid #dfe1e5",
+                                        borderRadius: "24px",
+                                        backgroundColor: "white",
+                                        boxShadow: "none",
+                                        hoverBackgroundColor: "#eee",
+                                        color: "#212121",
+                                        fontSize: "16px",
+                                        fontFamily: "Poppins",
+                                        iconColor: "grey",
+                                        lineColor: "rgb(232, 234, 237)",
+                                        placeholderColor: "black",
+                                        clearIconMargin: '0px 10px',
+                                        searchIconMargin: '0 0 0 20px'
+                                    }}
+                                    className='search'
+                                />
+                            </form>
+                        </div>
+                        <div className="recm-item dropdown">
+                            <div className="flex items-center">
+                                <span className='span-sort text-xs font-bold text-[#626161]'>Sort</span>
+                                <div className="sort-wrapper">
+                                    <select className="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
+                                        <option value="recommended">Recommended</option>
+                                        <option value="mostliked">Most Liked</option>
+                                        <option value="mostviewed">Most Viewed</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 sm:grid-cols-2 gap-3 mt-4">
+                        {filteredItems.length > 0 ? (
+                            filteredItems.map((item) => (
+                                <div key={item.id} className="category-item cursor-pointer" onClick={() => openOverlay(item)}>
+                                    <div className="cat-img relative overflow-hidden rounded-md">
+                                        <div className="bg-overlay"></div>
+                                        <img src={item.img_url} alt={item.text} />
+                                    </div>
+                                    <div className="cat-info flex justify-between py-3">
+                                        <div className="cat-name cursor-pointer">
+                                            <h4 className='font-medium text-xs hover:underline leading-[15px] text-ellipsis'>{item.text}</h4>
+                                            <span className='text-xs hover:underline text-[#959595]'>{item.user}</span>
+                                        </div>
+                                        <div className="be-time flex">
+                                            <button className="be-like flex mr-2">
+                                                <div className="li-icon w-2 h-auto text-[#959595] mr-[5px]">
+                                                    <AiTwotoneLike className='w-3 h-auto'/>
+                                                </div>
+                                                <span className='text-xs font-medium text-[#959595]'>{item.likes}</span>
+                                            </button>
+                                            <button className="be-watch flex mr-2">
+                                                <div className="wa-icon text-[#959595] mr-1 mt-[2px]">
+                                                    <PiEyeDuotone className='w-3 h-auto'/>
+                                                </div>
+                                                <span className='text-xs font-medium text-[#959595]'>{item.watches}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center col-span-full text-lg text-gray-500">
+                                No matching results found.
+                            </div>
+                        )}
+                    </div>
                 </div>
-                  <div className="grid md:grid-cols-3 lg:grid-cols-5 sm:grid-cols-2 gap-3 mt-4">
-                      {filteredItems.length > 0 ? (
-                          filteredItems.map((item) => (
-                              <div key={item.id} className="category-item cursor-pointer">
-                                  <div className="cat-img relative overflow-hidden rounded-md">
-                                      <div className="bg-overlay"></div>
-                                      <img src={item.img_url} alt={item.text} />
-                                  </div>
-                                  <div className="cat-info flex justify-between py-3">
-                                      <div className="cat-name cursor-pointer">
-                                          <h4 className='font-medium text-xs hover:underline leading-[15px] text-ellipsis'>{item.text}</h4>
-                                          <span className='text-xs hover:underline text-[#959595]'>{item.user}</span>
-                                      </div>
-                                      <div className="be-time flex">
-                                          <button className="be-like flex mr-2">
-                                              <div className="li-icon w-2 h-auto text-[#959595] mr-[5px]">
-                                                  <AiTwotoneLike className='w-3 h-auto'/>
-                                              </div>
-                                              <span className='text-xs font-medium text-[#959595]'>{item.likes}</span>
-                                          </button>
-                                          <button className="be-watch flex mr-2">
-                                              <div className="wa-icon text-[#959595] mr-1 mt-[2px]">
-                                                  <PiEyeDuotone className='w-3 h-auto'/>
-                                              </div>
-                                              <span className='text-xs font-medium text-[#959595]'>{item.watches}</span>
-                                          </button>
-                                      </div>
-                                  </div>
-                              </div>
-                          ))
-                      ) : (
-                          <div className="text-center col-span-full text-lg text-gray-500">
-                              No matching results found.
-                          </div>
-                      )}
-                  </div>
-              </div>
-          </section>
-      </>
-  );
+            </section>
+
+            {selectedItem && (
+                <div className="overlay visible" onClick={closeOverlay}>
+                    <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+                        <h4>{selectedItem.text}</h4>
+                        <p>{selectedItem.user}</p>
+                        <p>Likes: {selectedItem.likes}</p>
+                        <p>Views: {selectedItem.watches}</p>
+                        <button onClick={closeOverlay}>Close</button>
+                        <img src={selectedItem.img_url} alt={selectedItem.text} />
+                    </div>
+                </div>
+            )}
+        </>
+    );
 };
 
-export default TestComponent;
+export default GalleryComponent;
