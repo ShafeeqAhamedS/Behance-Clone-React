@@ -9,7 +9,7 @@ import './HeaderComponent.css'
 const HeaderComponent = () => {
   return (
     <div>
-        <header className='fixed w-full z-10'>
+        <header className='fixed w-full '>
             <div className="container-fluid bg-white">
                 <div className="top-header py-2 px-5 border-b border flex justify-between ">
                     <div className="navbar flex items-center ">
@@ -76,6 +76,7 @@ const HeaderComponent = () => {
                 </div>
             </div>
         </header>
+
     </div>
   )
 }

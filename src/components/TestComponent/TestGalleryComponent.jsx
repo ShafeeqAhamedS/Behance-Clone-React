@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { behanceItem } from '../../data';
 import { PiEyeDuotone } from "react-icons/pi";
 import { IoFilterSharp } from "react-icons/io5";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { AiTwotoneLike } from "react-icons/ai";
-import { GrLike } from "react-icons/gr";
-import './GalleryComponent.css';
+import './TestComponent.css';
 import { GoShare } from "react-icons/go";
 import { IoFolderOpen } from "react-icons/io5";
 import { IoIosMail } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
+import OverlayComponent from './TestOverlayComponent';
+import { openDB } from 'idb';
 
-
-
-
+// Function to open IndexedDB
+const initDB = async () => {
+    return openDB('galleryDB', 1, {
+        upgrade(db) {
+            if (!db.objectStoreNames.contains('posts')) {
+                db.createObjectStore('posts', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('users')) {
+                db.createObjectStore('users', { keyPath: 'userId' });
+            }
+        },
+    });
+};
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -29,20 +39,39 @@ const sortItems = (items, criteria) => {
 };
 
 const GalleryComponent = () => {
-    const [filteredItems, setFilteredItems] = useState(behanceItem);
+    const [filteredItems, setFilteredItems] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [sortCriteria, setSortCriteria] = useState('recommended');
     const [selectedItem, setSelectedItem] = useState(null);
-    
+    const [currentUser, setCurrentUser] = useState(null);
+    const [likedPosts, setLikedPosts] = useState([]);
 
-    const extractedData = behanceItem.map(item => ({
-        id: item.id,
-        text: item.text
-    }));
+    // Fetch data from IndexedDB
+    const fetchData = async () => {
+        const db = await initDB();
+        const posts = await db.getAll('posts');
+        const users = await db.getAll('users');
+        // get logged in id from local storage
+        
+        const currrentUserId = parseInt(localStorage.getItem('user'));
+        const user = users.find(user => user.userId === currrentUserId); // Replace with the logged-in user ID
+        setCurrentUser(user);
+        setLikedPosts(user ? user.likedPosts : []);
+        setFilteredItems(posts);
+    };
 
     useEffect(() => {
-        const filtered = behanceItem.filter(item =>
+        fetchData();
+    }, []);
+
+    const updateDB = async (store, key, value) => {
+        const db = await initDB();
+        await db.put(store, value);
+    };
+
+    useEffect(() => {
+        const filtered = filteredItems.filter(item =>
             item.text.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredItems(sortItems(filtered, sortCriteria));
@@ -50,7 +79,7 @@ const GalleryComponent = () => {
 
     const handleOnSearch = (string) => {
         if (string === '') {
-            setFilteredItems(behanceItem);
+            fetchData();
         }
         setSearchString(string);
     };
@@ -100,6 +129,35 @@ const GalleryComponent = () => {
         };
     }, []);
 
+    const toggleLike = async (post) => {
+        const updatedLikedPosts = likedPosts.includes(post.id)
+            ? likedPosts.filter(id => id !== post.id)
+            : [...likedPosts, post.id];
+
+        const updatedPost = {
+            ...post,
+            likes: likedPosts.includes(post.id) ? post.likes - 1 : post.likes + 1
+        };
+
+        setLikedPosts(updatedLikedPosts);
+        setFilteredItems(
+            filteredItems.map(item => item.id === post.id ? updatedPost : item)
+        );
+
+        console.log('updatedLikedPosts', updatedLikedPosts);
+
+        if (currentUser) {
+            const updatedUser = {
+                ...currentUser,
+                likedPosts: updatedLikedPosts
+            };
+            setCurrentUser(updatedUser);
+            await updateDB('users', currentUser.userId, updatedUser);
+            await updateDB('posts', post.id, updatedPost);
+        }
+        console.log('updatedLikedPosts', currentUser);
+    };
+
     return (
         <>
             <section>
@@ -112,7 +170,7 @@ const GalleryComponent = () => {
                         <div className='w-11/12 px-5'>
                             <form onSubmit={handleSearchSubmit}>
                                 <ReactSearchAutocomplete
-                                    items={extractedData}
+                                    items={filteredItems.map(item => ({ id: item.id, text: item.text }))}
                                     fuseOptions={{ keys: ["text"] }}
                                     resultStringKeyName="text"
                                     onSearch={handleOnSearch}
@@ -159,10 +217,10 @@ const GalleryComponent = () => {
                     <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4">
                         {filteredItems.length > 0 ? (
                             filteredItems.map((item) => (
-                                <div key={item.id} className="category-item cursor-pointer" onClick={() => openOverlay(item)}>
+                                <div key={item.id} className={`category-item cursor-pointer ${likedPosts.includes(item.id) ? 'bg-pink-500' : ''}`} onClick={() => openOverlay(item)}>
                                     <div className="cat-img relative h-80 overflow-hidden">
                                         <div className="bg-overlay"></div>
-                                        <img src={item.img_url} alt={item.text} cla />
+                                        <img src={item.img_url} alt={item.text} />
                                     </div>
                                     <div className="cat-info flex justify-between py-3">
                                         <div className="cat-name cursor-pointer">
@@ -170,11 +228,11 @@ const GalleryComponent = () => {
                                             <span className='text-xs hover:underline text-[#959595]'>{item.user}</span>
                                         </div>
                                         <div className="be-time flex">
-                                            <button className="be-like flex mr-2">
+                                            <button className="be-like flex mr-2" onClick={(e) => { e.stopPropagation(); toggleLike(item); }}>
                                                 <div className="li-icon w-2 h-auto text-[#959595] mr-[5px]">
                                                     <AiTwotoneLike className='w-3 h-auto'/>
                                                 </div>
-                                                <span className='text-xs font-medium text-[#959595]'>{item.likes}</span>
+                                                <span className='text-xs font-medium text-black'>{item.likes}</span>
                                             </button>
                                             <button className="be-watch flex mr-2">
                                                 <div className="wa-icon text-[#959595] mr-1 mt-[2px]">
@@ -196,64 +254,8 @@ const GalleryComponent = () => {
             </section>
 
             {selectedItem && (
-        <div className="overlay visible flex justify-end items-center w-full h-full fixed" onClick={closeOverlay}>
-          <div className="overlay-content h-full w-[95%] relative" onClick={(e) => e.stopPropagation()}>
-            <div className="overlay-sidebar flex flex-col items-center absolute right-0 top-0 py-20 justify-evenly px-3 rounded-full" onClick={(e) => e.stopPropagation()}>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <FaUserCircle size={40}/>
-                    </div>
-                    <p className='text-xs text-gray-400'>Follow</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <IoIosMail size={24} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Hire</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <IoFolderOpen size={24}/>
-                    </div>
-                    <p className='text-xs text-gray-400'>Save</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer" >
-                        <GoShare size={24} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Share</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer bg-blue-600">
-                        <GrLike size={24} style={{color:"white"}} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Appreciate</p>
-                </div>
-                
-                
-
-            </div>
-            <div className="overlay-header flex items-center my-4">
-                    <div className="flex items-center justify-center bg-gray-600 rounded-full w-8 h-8 text-center cursor-pointer absolute top-2 right-2" onClick={closeOverlay}>
-                        <IoCloseSharp size={20} style={{color: "white"}}/>
-                    </div>
-              <div className="overlay-user flex items-center justify-center bg-white w-12 h-12 rounded-full "><FaUserCircle size={40}/></div>
-              <div className="overlay-user-data ml-4">
-                <p className='text-base font-bold'>{selectedItem.text}</p>
-                <p className='text-xs'>{selectedItem.user} &nbsp; • &nbsp; Follow</p>
-              </div>
-            </div>
-            <div className="overlay-text flex justify-evenly">
-
-            </div>
-            <div className="overlay-img flex justify-center align-center">
-                <div className="overlay-img-div">
-                   <img src={selectedItem.img_url} alt={selectedItem.text} />
-                </div>
-            </div>
-          </div>
-        </div>
-      )}
+                <OverlayComponent selectedItem={selectedItem} closeOverlay={closeOverlay} />
+            )}
         </>
     );
 };
