@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GoChevronDown } from 'react-icons/go';
 import { BiSolidBell } from 'react-icons/bi';
 import { FaUserCircle } from "react-icons/fa";
-import { adobeLogo, behance_logo } from '../../data';
+import { adobeLogo, behance_logo } from '../../logos';
 import './HeaderComponent.css';
 import userData from '../../userData';
 
@@ -24,7 +24,7 @@ const HeaderComponent = () => {
     };
 
     const handleLogin = (event) => {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
         const loggedInUser = userData.find((user) => user.email === email && user.password === password);
         if (loggedInUser) {
           setUser(loggedInUser);
@@ -104,7 +104,7 @@ const HeaderComponent = () => {
                                 </li>
                                 <li className='mx-2 font-semibold text-base hidden sm:block'><a href="http://" target="_blank" rel="noopener noreferrer">Assets</a></li>
                                 <li className='mx-2 font-semibold text-base hidden sm:block'><a href="http://" target="_blank" rel="noopener noreferrer">Jobs</a></li>
-                                <li className='mx-2 font-semibold text-base hidden sm:block'>
+                                <li className='mx-2 font-semibold text-base hidden md:block'>
                                     <a href="http://" target="_blank" rel="noopener noreferrer" className='flex items-center hidden sm:flex'>
                                         Behance
                                         <a className="pro-btn rounded-md font-bold border mx-2 flex items-center justify-center h-[20px] w-[30px] text-[0.65rem] text-center text-white" href="">PRO</a>
@@ -136,7 +136,7 @@ const HeaderComponent = () => {
                                 <div className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-center cursor-pointer">
                                 <FaUserCircle size={40}/>
                             </div>
-                            <p className='font-bold text-sm mx-2 hidden md:block'>{user.name}</p>
+                            <p className='font-bold text-sm mx-2'>{user.name}</p>
                             <button className="logout-btn rounded-full font-bold border px-3 py-1 mx-1 text-[13px] text-white bg-red-500" onClick={handleLogout}>Logout</button>
                         </div>
                         ) : (
@@ -200,7 +200,6 @@ const HeaderComponent = () => {
             </div>
           )}
         </header>
-
     </div>
   )
 }

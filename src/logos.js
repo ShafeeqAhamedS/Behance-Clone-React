@@ -1,0 +1,2 @@
+export const behance_logo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Behance_logo.svg/1280px-Behance_logo.svg.png';
+export const adobeLogo = 'https://cdn.iconscout.com/icon/free/png-256/adobe-254-761738.png';

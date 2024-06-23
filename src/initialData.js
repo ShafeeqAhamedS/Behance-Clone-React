@@ -2,70 +2,7 @@ import img1 from './assets/gallery/img1.png'
 import aot_fortnite from './assets/gallery/aot_fortnite.png'
 import mikasa from './assets/gallery/mikasa.jpg'
 
-
-
-export const behance_logo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Behance_logo.svg/1280px-Behance_logo.svg.png';
-export const adobe_cloude = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Adobe_Creative_Cloud_rainbow_icon.svg/640px-Adobe_Creative_Cloud_rainbow_icon.svg.png';
-export const adobeLogo = 'https://cdn.iconscout.com/icon/free/png-256/adobe-254-761738.png';
-
-export const searchType = [
-
-    {
-        sItems: 'Images',
-    },
-    {
-        sItems: 'Prototypes',
-    },
-    {
-        sItems: 'Streams',
-    },
-    {
-        sItems: 'People',
-    },
-    {
-        sItems: 'Moodboards',
-    }
-]
-
-
-// export const tagName = [
-//     {
-//         tags: 'Creative Fields',
-//         tagsIcon: <SiAdobecreativecloud/>
-//     },
-//     {
-//         tags: 'Tools',
-//         tagsIcon: <FaTools />
-
-//     },
-//     {
-//         tags: 'Color',
-//         tagsIcon: <HiColorSwatch />
-
-//     },
-//     {
-//         tags: 'Location',
-//         tagsIcon: <IoLocationSharp />
-
-//     },
-//     {
-//         tags: 'Schools',
-//         tagsIcon: <MdSchool />
-
-//     },
-//     {
-//         tags: 'Source Files',
-//         tagsIcon: <IoMdAttach />
-
-//     },
-//     {
-//         tags: 'Subscriptions',
-//         tagsIcon: <BsCreditCard2BackFill />
-//     }
-// ]
-
-
-export const behanceItem = [
+export const initialData = [
     {
         id: 0,
         img_url: img1,

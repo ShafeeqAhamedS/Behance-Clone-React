@@ -1,16 +1,23 @@
 const userData = [
     {
         "userId": 3333,
-        "name": "Shafeeq Ahamed",
+        "name": "Shafeeq",
         "email": "shafeeq@mail.com",
         "password": "shafeeq",
         "likedPosts": [0, 1, 2]
     },
     {
         "userId": 2828,
-        "name": "Sanjay Kumar",
+        "name": "Sanjay",
         "email": "sanjay@mail.com",
         "password": "sanjay",
+        "likedPosts": [3, 4]
+    },
+    {
+        "userId": 2525,
+        "name": "Meenakshi",
+        "email": "meenu@mail.com",
+        "password": "meenu",
         "likedPosts": [3, 4]
     }
 ]

@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { PiEyeDuotone } from "react-icons/pi";
-import { IoFilterSharp } from "react-icons/io5";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { AiTwotoneLike } from "react-icons/ai";
-import './GalleryComponent.css';
-import { GoShare } from "react-icons/go";
-import { IoFolderOpen } from "react-icons/io5";
-import { IoIosMail } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { IoCloseSharp } from "react-icons/io5";
-import OverlayComponent from './OverlayComponent'
-import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 import { GoHeart } from "react-icons/go";
 
 
+import { initialData } from '../../initialData';
 import userData from '../../userData';
-import { behanceItem } from '../../data';
+import './GalleryComponent.css';
+import OverlayComponent from './OverlayComponent'
 import SearchComponent from './SearchComponent';
-
-const loadData = () => {
-    localStorage.setItem('users', JSON.stringify(userData));
-    localStorage.setItem('posts', JSON.stringify(behanceItem));
-}
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -46,17 +32,14 @@ const GalleryComponent = () => {
     const [currentUser, setCurrentUser] = useState(null);
     const [likedPosts, setLikedPosts] = useState([]);
 
-    // Load the data from userData & behanceItem into local storage using loadData function 
 
     const fetchData = () => {
-        // Check if data already exists in local storage
         const postsInLocalStorage = localStorage.getItem('posts');
         const usersInLocalStorage = localStorage.getItem('users');
     
         if (!postsInLocalStorage || !usersInLocalStorage) {
-            // If data doesn't exist, load it from static sources and set in local storage
             localStorage.setItem('users', JSON.stringify(userData));
-            localStorage.setItem('posts', JSON.stringify(behanceItem));
+            localStorage.setItem('posts', JSON.stringify(initialData));
         }
     
         // Now fetch the data from local storage
@@ -84,27 +67,17 @@ const GalleryComponent = () => {
         setFilteredItems(sortItems(filtered, sortCriteria));
     }, [allItems, searchTerm, sortCriteria]);
 
-    // const handleOnSearch = (string) => {
-    //     if (string === '') {
-    //         fetchData();
-    //     }
-    //     setSearchString(string);
-    // };
-
     const handleOnSearch = (string) => {
         if (string === '') {
             fetchData();
-            // Reset maxResults to show all filteredItems
-            setFilteredItems(allItems); // Reset filteredItems to allItems
-            setSearchTerm(''); // Reset searchTerm
-            setSearchString(''); // Reset searchString
-
+            setFilteredItems(allItems);
+            setSearchTerm('');
+            setSearchString('');
         } else {
             setSearchString(string);
         }
     };
     
-
     const handleOnSelect = (item) => {
         setSearchTerm(item.text);
     };
@@ -207,58 +180,6 @@ const GalleryComponent = () => {
                         handleSearchSubmit={handleSearchSubmit}
                     />
                 <div className="container-fluid px-4 mt-14 relative top-40 sm:top-24">
-                    {/* <div className="flex items-center mt-16">
-                        <div className="flex items-center border rounded-full px-7 py-2 w-fit text-center text-lg font-semibold">
-                            <IoFilterSharp className='pr-3 w-max'/>
-                            <span>Filter</span>
-                        </div>
-                        <div className='w-11/12 px-5'>
-                            <form onSubmit={handleSearchSubmit}>
-                                <ReactSearchAutocomplete
-                                    items={allItems.map(item => ({ id: item.id, text: item.text }))}
-                                    fuseOptions={{ keys: ["text"] }}
-                                    resultStringKeyName="text"
-                                    onSearch={handleOnSearch}
-                                    onSelect={handleOnSelect}
-                                    onClear={() => setSearchString('')}
-                                    onEnter={handleOnEnter}
-                                    maxResults={5}
-                                    showIcon={true}
-                                    placeholder={"Search the creative world at work"}
-                                    styling={{
-                                        zIndex: "100",
-                                        height: "40px",
-                                        border: "1px solid #dfe1e5",
-                                        borderRadius: "24px",
-                                        backgroundColor: "white",
-                                        boxShadow: "none",
-                                        hoverBackgroundColor: "#eee",
-                                        color: "#212121",
-                                        fontSize: "16px",
-                                        fontFamily: "Poppins",
-                                        iconColor: "grey",
-                                        lineColor: "rgb(232, 234, 237)",
-                                        placeholderColor: "black",
-                                        clearIconMargin: '0px 10px',
-                                        searchIconMargin: '0 0 0 20px'
-                                    }}
-                                    className='search'
-                                />
-                            </form>
-                        </div>
-                        <div className="recm-item dropdown">
-                            <div className="flex items-center">
-                                <span className='span-sort text-xs font-bold text-[#626161]'>Sort</span>
-                                <div className="sort-wrapper">
-                                    <select className="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
-                                        <option value="recommended">Recommended</option>
-                                        <option value="mostliked">Most Liked</option>
-                                        <option value="mostviewed">Most Viewed</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4">
                         {filteredItems.length > 0 ? (
                             filteredItems.map((item) => (
