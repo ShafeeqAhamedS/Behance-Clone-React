@@ -78,7 +78,7 @@ const HeaderComponent = () => {
     ]
   return (
     <div>
-        <header className='fixed w-full '>
+        <header className='fixed w-full z-50'>
             <div className="container-fluid bg-white">
                 <div className="top-header py-4 px-5 border-b border flex justify-between ">
                     <div className="navbar flex items-center ">
@@ -159,7 +159,7 @@ const HeaderComponent = () => {
                 </div>
             </div>
             {loginOverlay && (
-            <div className="login-overlay absolute m-5 sm:mx-16 right-0 px-10 py-5 bg-black bg-opacity-50 rounded-lg">
+            <div className="login-overlay absolute m-5 sm:mx-16 right-0 px-10 py-5 bg-black bg-opacity-80 rounded-lg">
               <div className="login-overlay-content">
                 <div className="login-overlay-header flex justify-between items-center">
                   <h2 className='font-bold text-white'>Log In</h2>

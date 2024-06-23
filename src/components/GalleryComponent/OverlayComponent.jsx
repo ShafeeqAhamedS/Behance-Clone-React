@@ -13,7 +13,7 @@ const OverlayComponent = ({ selectedItem, closeOverlay }) => {
     return (
         <div className="overlay visible flex justify-end items-center w-full h-full fixed" onClick={closeOverlay}>
             <div className="overlay-content h-full w-[95%] relative" onClick={(e) => e.stopPropagation()}>
-                <div className="overlay-sidebar flex flex-col items-center absolute right-0 top-0 py-20 justify-evenly px-3 rounded-full" onClick={(e) => e.stopPropagation()}>
+                <div className="overlay-sidebar flex flex-col items-center absolute right-0 top-0 py-20 justify-evenly px-3 rounded-full hidden sm:flex" onClick={(e) => e.stopPropagation()}>
                     <div className="sidebar-icon pb-4 flex flex-col items-center">
                         <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
                             <FaUserCircle size={40}/>
