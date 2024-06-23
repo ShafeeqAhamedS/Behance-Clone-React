@@ -1,4 +1,4 @@
-[
+export const userData = [
     {
         "userId": 3333,
         "name": "Shafeeq Ahamed",

@@ -5,6 +5,7 @@ import GalleryComponent from './components/GalleryComponent/GalleryComponent'
 import TestComponent from './components/TestComponent/TestComponent'
 import TestGalleryComponent from './components/TestComponent/TestGalleryComponent'
 import IndexDB from './components/TestComponent/IndexDB'
+import LocalTestGalleryComponent from './components/TestComponent/LocalTestGalleryComponent'
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       {/* <HeaderComponent/> */}
       {/* <GalleryComponent/> */}
       <TestComponent/>
-      <TestGalleryComponent/>
-      <IndexDB/>
+      {/* <TestGalleryComponent/> */}
+      <LocalTestGalleryComponent/>
+      {/* <IndexDB/> */}
     </div>
   )
 }

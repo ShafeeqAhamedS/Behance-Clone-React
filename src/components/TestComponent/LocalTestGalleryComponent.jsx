@@ -10,7 +10,13 @@ import { IoIosMail } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import OverlayComponent from './TestOverlayComponent';
-import { openDB } from 'idb';
+import userData from '../../userData';
+import { behanceItem } from '../../data';
+
+const loadData = () => {
+    localStorage.setItem('users', JSON.stringify(userData));
+    localStorage.setItem('posts', JSON.stringify(behanceItem));
+}
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -24,31 +30,8 @@ const sortItems = (items, criteria) => {
     }
 };
 
-const initDB = async () => {
-    const openRequest = indexedDB.open('galleryDB', 1);
-    openRequest.onupgradeneeded = function(event) {
-        const db = event.target.result;
-        const usersStore = db.createObjectStore('users', { keyPath: 'userId' });
-        const postsStore = db.createObjectStore('posts', { keyPath: 'id' });
-        userData.forEach(user => {
-            usersStore.add(user);
-            console.log('User added:', user);
-        });
-        behanceItem.forEach(post => {
-            postsStore.add(post);
-            console.log('Post added:', post);
-        });
-    };
-    openRequest.onsuccess = function(event) {
-        console.log('IndexedDB opened successfully');
-    };
-    openRequest.onerror = function(event) {
-        console.error('Error opening IndexedDB:', event.target.errorCode);
-    };
-};
-
-
 const GalleryComponent = () => {
+    const [allItems, setAllItems] = useState([]);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -57,36 +40,43 @@ const GalleryComponent = () => {
     const [currentUser, setCurrentUser] = useState(null);
     const [likedPosts, setLikedPosts] = useState([]);
 
-    // Fetch data from IndexedDB
-    const fetchData = async () => {
-        initDB()
-        const db = await openDB('galleryDB', 1);
-        const posts = await db.getAll('posts');
-        const users = await db.getAll('users');
-        // get logged in id from local storage
-        
-        const currrentUserId = parseInt(localStorage.getItem('user'));
-        const user = users.find(user => user.userId === currrentUserId); // Replace with the logged-in user ID
+    // Load the data from userData & behanceItem into local storage using loadData function 
+
+    const fetchData = () => {
+        // Check if data already exists in local storage
+        const postsInLocalStorage = localStorage.getItem('posts');
+        const usersInLocalStorage = localStorage.getItem('users');
+    
+        if (!postsInLocalStorage || !usersInLocalStorage) {
+            // If data doesn't exist, load it from static sources and set in local storage
+            localStorage.setItem('users', JSON.stringify(userData));
+            localStorage.setItem('posts', JSON.stringify(behanceItem));
+        }
+    
+        // Now fetch the data from local storage
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+        const currentUserId = parseInt(localStorage.getItem('user'));
+        const user = users.find(user => user.userId === currentUserId);
         setCurrentUser(user);
         setLikedPosts(user ? user.likedPosts : []);
+        setAllItems(posts);
         setFilteredItems(posts);
+        console.log('posts fetched', posts);
     };
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    const updateDB = async (store, key, value) => {
-        const db = await openDB('galleryDB', 1);
-        await db.put(store, value);
-    };
-
     useEffect(() => {
-        const filtered = filteredItems.filter(item =>
+        console.log('allItems', allItems);
+        const filtered = allItems.filter(item =>
             item.text.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredItems(sortItems(filtered, sortCriteria));
-    }, [searchTerm, sortCriteria]);
+    }, [allItems, searchTerm, sortCriteria]);
 
     const handleOnSearch = (string) => {
         if (string === '') {
@@ -140,34 +130,45 @@ const GalleryComponent = () => {
         };
     }, []);
 
-    const toggleLike = async (post) => {
-        const updatedLikedPosts = likedPosts.includes(post.id)
+    const toggleLike = (post) => {
+        const isLiked = likedPosts.includes(post.id);
+        const updatedLikedPosts = isLiked
             ? likedPosts.filter(id => id !== post.id)
             : [...likedPosts, post.id];
-
+    
         const updatedPost = {
             ...post,
-            likes: likedPosts.includes(post.id) ? post.likes - 1 : post.likes + 1
+            likes: isLiked ? parseInt(post.likes) - 1 : parseInt(post.likes) + 1
         };
-
+    
         setLikedPosts(updatedLikedPosts);
-        setFilteredItems(
-            filteredItems.map(item => item.id === post.id ? updatedPost : item)
+    
+        // Update filteredItems to reflect the change
+        setFilteredItems(prevItems =>
+            prevItems.map(item => item.id === post.id ? updatedPost : item)
         );
-
-        console.log('updatedLikedPosts', updatedLikedPosts);
-
+    
+        // Update local storage
         if (currentUser) {
             const updatedUser = {
                 ...currentUser,
                 likedPosts: updatedLikedPosts
             };
+    
             setCurrentUser(updatedUser);
-            await updateDB('users', currentUser.userId, updatedUser);
-            await updateDB('posts', post.id, updatedPost);
+    
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const updatedUsers = users.map(user => user.userId === currentUser.userId ? updatedUser : user);
+            console.log('updatedUsers', updatedUsers);
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+    
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const updatedPosts = posts.map(item => item.id === post.id ? updatedPost : item);
+            console.log('updatedPosts', updatedPosts);
+            localStorage.setItem('posts', JSON.stringify(updatedPosts));
         }
-        console.log('updatedLikedPosts', currentUser);
     };
+    
 
     return (
         <>

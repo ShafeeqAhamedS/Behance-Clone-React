@@ -13,9 +13,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 
 
-
-
-
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
         return [...items].sort(() => Math.random() - 0.5);
