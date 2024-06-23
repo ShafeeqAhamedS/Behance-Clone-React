@@ -87,7 +87,7 @@ const HeaderComponent = () => {
                         </div>
                         <div className="page-links">
                             <ul className='flex items-center ml-2'>
-                                <li className='mx-2 text-base relative'>
+                                <li className='mx-2 text-base relative hidden sm:block'>
                                     <a href="http://" target="_blank" rel="noopener noreferrer" className="active font-semibold">Explore <GoChevronDown className='inline' /> </a>
                                     <div className="dropdown-content absolute top-4">
                                         {exploreDropdown.map((group, index) => (

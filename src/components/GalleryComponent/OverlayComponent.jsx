@@ -55,9 +55,6 @@ const OverlayComponent = ({ selectedItem, closeOverlay }) => {
                         <p className='text-xs'>{selectedItem.user} &nbsp; • &nbsp; Follow</p>
                     </div>
                 </div>
-                <div className="overlay-text flex justify-evenly">
-                    {/* Additional content if needed */}
-                </div>
                 <div className="overlay-img flex justify-center align-center">
                     <div className="overlay-img-div">
                         <img src={selectedItem.img_url} alt={selectedItem.text} />
