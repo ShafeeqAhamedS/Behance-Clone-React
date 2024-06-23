@@ -1,7 +1,6 @@
 .page-links ul li a {
   position: relative;
   text-decoration: none;
-  padding-bottom: 4px; 
 }
 
 .page-links ul li a::after {
@@ -9,7 +8,7 @@
   position: absolute;
   width: 100%;
   height: 2px;
-  bottom: -0.7rem;
+  bottom: -1.2rem;
   left: 0;
   background-color: black;
   transform: scaleY(0);
@@ -24,28 +23,11 @@
 
 .pro-btn {
   background: linear-gradient(45deg, #0088fd 0%, #003bff 50%, #001faa 100%);
-  color: #ffffff;
-  text-align: center;
-  font-size: 0.65rem;
-  height: 20px;
-  width: 30px;
 }
 
 
 .pro-btn::after {
   display: none;
-}
-
-.login-btn {
-  color: #0057ff;
-  border-color: #dee8ff;
-  background-color: #f1f5ff;
-}
-
-.signup-btn {
-  color: #ffffff;
-  border-color: #00000000;
-  background-color: #0057ff;
 }
 
 .dropdown-content {
@@ -63,7 +45,7 @@
 }
 
 header{
-  z-index: 1000;
+  z-index: 10;
 }
 
 .page-links ul li:hover .dropdown-content {
@@ -85,6 +67,10 @@ header{
   background-color: #f1f1f1;
 }
 
+
+.dropdown-content, .dropdown-divider{
+  z-index: 100;
+}
 
 .d-1, .d-2:hover {
   color: #0057ff;

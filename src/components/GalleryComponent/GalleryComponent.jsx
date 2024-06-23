@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { behanceItem } from '../../data';
 import { PiEyeDuotone } from "react-icons/pi";
-import { IoFilterSharp } from "react-icons/io5";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { AiTwotoneLike } from "react-icons/ai";
 import { GrLike } from "react-icons/gr";
 import './GalleryComponent.css';
@@ -11,7 +9,7 @@ import { IoFolderOpen } from "react-icons/io5";
 import { IoIosMail } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-
+import SearchComponent from './SearchComponent';
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -32,7 +30,6 @@ const GalleryComponent = () => {
     const [sortCriteria, setSortCriteria] = useState('recommended');
     const [selectedItem, setSelectedItem] = useState(null);
     
-
     const extractedData = behanceItem.map(item => ({
         id: item.id,
         text: item.text
@@ -69,10 +66,6 @@ const GalleryComponent = () => {
         setSearchTerm(searchString);
     };
 
-    const handleOnHover = (result) => {
-        console.log(result);
-    };
-
     const openOverlay = (item) => {
         setSelectedItem(item);
         document.body.classList.add('overlay-open');
@@ -100,60 +93,18 @@ const GalleryComponent = () => {
     return (
         <>
             <section>
+                    <SearchComponent
+                        extractedData={extractedData}
+                        searchString={searchString}
+                        handleOnSearch={handleOnSearch}
+                        handleOnSelect={handleOnSelect}
+                        handleOnEnter={handleOnEnter}
+                        handleSortChange={handleSortChange}
+                        sortCriteria={sortCriteria}
+                        handleSearchSubmit={handleSearchSubmit}
+                    />
                 <div className="container-fluid px-4 mt-14">
-                    <div className="flex items-center mt-16">
-                        <div className="flex items-center border rounded-full px-7 py-2 w-fit text-center text-lg font-semibold">
-                            <IoFilterSharp className='pr-3 w-max'/>
-                            <span>Filter</span>
-                        </div>
-                        <div className='w-11/12 px-5'>
-                            <form onSubmit={handleSearchSubmit}>
-                                <ReactSearchAutocomplete
-                                    items={extractedData}
-                                    fuseOptions={{ keys: ["text"] }}
-                                    resultStringKeyName="text"
-                                    onSearch={handleOnSearch}
-                                    onSelect={handleOnSelect}
-                                    onClear={() => setSearchString('')}
-                                    onEnter={handleOnEnter}
-                                    maxResults={5}
-                                    showIcon={true}
-                                    placeholder={"Search the creative world at work"}
-                                    styling={{
-                                        zIndex: "100",
-                                        height: "40px",
-                                        border: "1px solid #dfe1e5",
-                                        borderRadius: "24px",
-                                        backgroundColor: "white",
-                                        boxShadow: "none",
-                                        hoverBackgroundColor: "#eee",
-                                        color: "#212121",
-                                        fontSize: "16px",
-                                        fontFamily: "Poppins",
-                                        iconColor: "grey",
-                                        lineColor: "rgb(232, 234, 237)",
-                                        placeholderColor: "black",
-                                        clearIconMargin: '0px 10px',
-                                        searchIconMargin: '0 0 0 20px'
-                                    }}
-                                    className='search'
-                                />
-                            </form>
-                        </div>
-                        <div className="recm-item dropdown">
-                            <div className="flex items-center">
-                                <span className='span-sort text-xs font-bold text-[#626161]'>Sort</span>
-                                <div className="sort-wrapper">
-                                    <select className="select-sort text-sm font-medium border rounded-full px-5 py-3" value={sortCriteria} onChange={handleSortChange}>
-                                        <option value="recommended">Recommended</option>
-                                        <option value="mostliked">Most Liked</option>
-                                        <option value="mostviewed">Most Viewed</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4">
+                    {/* <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4">
                         {filteredItems.length > 0 ? (
                             filteredItems.map((item) => (
                                 <div key={item.id} className="category-item cursor-pointer" onClick={() => openOverlay(item)}>
@@ -188,69 +139,66 @@ const GalleryComponent = () => {
                                 No matching results found.
                             </div>
                         )}
-                    </div>
+                    </div> */}
                 </div>
             </section>
 
             {selectedItem && (
-        <div className="overlay visible flex justify-end items-center w-full h-full fixed" onClick={closeOverlay}>
-          <div className="overlay-content h-full w-[95%] relative" onClick={(e) => e.stopPropagation()}>
-            <div className="overlay-sidebar flex flex-col items-center absolute right-0 top-0 py-20 justify-evenly px-3 rounded-full" onClick={(e) => e.stopPropagation()}>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <FaUserCircle size={40}/>
+                <div className="overlay visible flex justify-end items-center w-full h-full fixed" onClick={closeOverlay}>
+                    <div className="overlay-content h-full w-[95%] relative" onClick={(e) => e.stopPropagation()}>
+                        <div className="overlay-sidebar flex flex-col items-center absolute right-0 top-0 py-20 justify-evenly px-3 rounded-full" onClick={(e) => e.stopPropagation()}>
+                            <div className="sidebar-icon pb-4 flex flex-col items-center">
+                                <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
+                                    <FaUserCircle size={40}/>
+                                </div>
+                                <p className='text-xs text-gray-400'>Follow</p>
+                            </div>
+                            <div className="sidebar-icon pb-4 flex flex-col items-center">
+                                <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
+                                    <IoIosMail size={24} />
+                                </div>
+                                <p className='text-xs text-gray-400'>Hire</p>
+                            </div>
+                            <div className="sidebar-icon pb-4 flex flex-col items-center">
+                                <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
+                                    <IoFolderOpen size={24}/>
+                                </div>
+                                <p className='text-xs text-gray-400'>Save</p>
+                            </div>
+                            <div className="sidebar-icon pb-4 flex flex-col items-center">
+                                <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer" >
+                                    <GoShare size={24} />
+                                </div>
+                                <p className='text-xs text-gray-400'>Share</p>
+                            </div>
+                            <div className="sidebar-icon pb-4 flex flex-col items-center">
+                                <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer bg-blue-600">
+                                    <GrLike size={24} style={{color:"white"}} />
+                                </div>
+                                <p className='text-xs text-gray-400'>Appreciate</p>
+                            </div>
+                        </div>
+                        <div className="overlay-header flex items-center my-4">
+                            <div className="flex items-center justify-center bg-gray-600 rounded-full w-8 h-8 text-center cursor-pointer absolute top-2 right-2" onClick={closeOverlay}>
+                                <IoCloseSharp size={20} style={{color: "white"}}/>
+                            </div>
+                            <div className="overlay-user flex items-center justify-center bg-white w-12 h-12 rounded-full ">
+                                <FaUserCircle size={40}/>
+                            </div>
+                            <div className="overlay-user-data ml-4">
+                                <p className='text-base font-bold'>{selectedItem.text}</p>
+                                <p className='text-xs'>{selectedItem.user} &nbsp; • &nbsp; Follow</p>
+                            </div>
+                        </div>
+                        <div className="overlay-text flex justify-evenly"></div>
+                        <div className="overlay-img flex justify-center align-center">
+                            <div className="overlay-img-div">
+                                <img src={selectedItem.img_url} alt={selectedItem.text} />
+                            </div>
+                        </div>
                     </div>
-                    <p className='text-xs text-gray-400'>Follow</p>
                 </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <IoIosMail size={24} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Hire</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer">
-                        <IoFolderOpen size={24}/>
-                    </div>
-                    <p className='text-xs text-gray-400'>Save</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer" >
-                        <GoShare size={24} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Share</p>
-                </div>
-                <div className="sidebar-icon pb-4 flex flex-col items-center">
-                    <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer bg-blue-600">
-                        <GrLike size={24} style={{color:"white"}} />
-                    </div>
-                    <p className='text-xs text-gray-400'>Appreciate</p>
-                </div>
-                
-                
-
-            </div>
-            <div className="overlay-header flex items-center my-4">
-                    <div className="flex items-center justify-center bg-gray-600 rounded-full w-8 h-8 text-center cursor-pointer absolute top-2 right-2" onClick={closeOverlay}>
-                        <IoCloseSharp size={20} style={{color: "white"}}/>
-                    </div>
-              <div className="overlay-user flex items-center justify-center bg-white w-12 h-12 rounded-full "><FaUserCircle size={40}/></div>
-              <div className="overlay-user-data ml-4">
-                <p className='text-base font-bold'>{selectedItem.text}</p>
-                <p className='text-xs'>{selectedItem.user} &nbsp; • &nbsp; Follow</p>
-              </div>
-            </div>
-            <div className="overlay-text flex justify-evenly">
-
-            </div>
-            <div className="overlay-img flex justify-center align-center">
-                <div className="overlay-img-div">
-                   <img src={selectedItem.img_url} alt={selectedItem.text} />
-                </div>
-            </div>
-          </div>
-        </div>
-      )}
+            )}
         </>
     );
 };

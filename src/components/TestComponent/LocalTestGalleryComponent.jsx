@@ -78,12 +78,26 @@ const GalleryComponent = () => {
         setFilteredItems(sortItems(filtered, sortCriteria));
     }, [allItems, searchTerm, sortCriteria]);
 
+    // const handleOnSearch = (string) => {
+    //     if (string === '') {
+    //         fetchData();
+    //     }
+    //     setSearchString(string);
+    // };
+
     const handleOnSearch = (string) => {
         if (string === '') {
             fetchData();
+            // Reset maxResults to show all filteredItems
+            setFilteredItems(allItems); // Reset filteredItems to allItems
+            setSearchTerm(''); // Reset searchTerm
+            setSearchString(''); // Reset searchString
+
+        } else {
+            setSearchString(string);
         }
-        setSearchString(string);
     };
+    
 
     const handleOnSelect = (item) => {
         setSearchTerm(item.text);
@@ -182,7 +196,7 @@ const GalleryComponent = () => {
                         <div className='w-11/12 px-5'>
                             <form onSubmit={handleSearchSubmit}>
                                 <ReactSearchAutocomplete
-                                    items={filteredItems.map(item => ({ id: item.id, text: item.text }))}
+                                    items={allItems.map(item => ({ id: item.id, text: item.text }))}
                                     fuseOptions={{ keys: ["text"] }}
                                     resultStringKeyName="text"
                                     onSearch={handleOnSearch}

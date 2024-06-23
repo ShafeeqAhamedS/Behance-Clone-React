@@ -1,12 +1,13 @@
 import img1 from './assets/gallery/img1.png'
 import aot_fortnite from './assets/gallery/aot_fortnite.png'
 import mikasa from './assets/gallery/mikasa.jpg'
+import adobe from './assets/HeaderComponentAssets/adobe.png'
 
 
 
 export const behance_logo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Behance_logo.svg/1280px-Behance_logo.svg.png';
 export const adobe_cloude = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Adobe_Creative_Cloud_rainbow_icon.svg/640px-Adobe_Creative_Cloud_rainbow_icon.svg.png';
-export const adobeLogo = 'https://cdn.iconscout.com/icon/free/png-256/adobe-254-761738.png';
+export const adobeLogo = adobe;
 
 export const searchType = [
 

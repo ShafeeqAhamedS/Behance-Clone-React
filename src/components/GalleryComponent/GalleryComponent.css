@@ -4,14 +4,16 @@
 }
 
 
-.span-sort{
-    position: relative;
-    font-size: 16px;
-    padding: 0 10px;
-    color: #007bff;
-    background-color: #fff;
-    left: 10px;
-    transform: translate(45px, -23px);
+@media (min-width: 640px) {
+    .span-sort{
+        position: relative;
+        font-size: 16px;
+        color: #007bff;
+        background-color: #fff;
+        left: 10px;
+        transform: translate(40px, -22px);
+        padding: 0 5px;
+    } 
 }
 
 
