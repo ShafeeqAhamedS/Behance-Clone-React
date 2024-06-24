@@ -5,7 +5,6 @@ import { BiSolidBell } from 'react-icons/bi';
 import { FaUserCircle } from "react-icons/fa";
 import { adobeLogo, behance_logo } from '../../logos';
 import './HeaderComponent.css';
-import userData from '../../userData';
 
 
 const HeaderComponent = () => {
@@ -13,9 +12,11 @@ const HeaderComponent = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const userId = localStorage.getItem('user');
+        const userId = JSON.parse(localStorage.getItem('user'));
+        const userData = JSON.parse(localStorage.getItem('users'));
         if (userId) {
           const loggedInUser = userData.find((user) => user.userId === parseInt(userId));
+          console.log(userData);
           setUser(loggedInUser);
         }
       }, []);
@@ -109,7 +110,7 @@ const HeaderComponent = () => {
                                 <div className='font-bold cursor-pointer'  onClick={handleLoginClick}>Log In</div>
                             </div>
                             <div className="signup-btn rounded-full font-bold border px-3 py-1 mx-1 text-[13px] hidden md:block text-white bg-[#0057ff]">
-                                <div className='font-bold cursor-pointer'>Sign Up</div>
+                                <div className='font-bold cursor-pointer' onClick={() => navigate('/signup')}>Sign Up</div>
                             </div>
                         </div>
                         )}
