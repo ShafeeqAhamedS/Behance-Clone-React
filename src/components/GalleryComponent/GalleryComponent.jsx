@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { PiEyeDuotone } from "react-icons/pi";
+import { IoEyeOutline } from "react-icons/io5";
 import { FcLike } from "react-icons/fc";
 import { GoHeart } from "react-icons/go";
-
 
 import { initialData } from '../../initialData';
 import userData from '../../userData';
 import './GalleryComponent.css';
 import OverlayComponent from './OverlayComponent'
 import SearchComponent from './SearchComponent';
+import FooterComponent from './FooterComponent';
 
 const sortItems = (items, criteria) => {
     if (criteria === 'recommended') {
@@ -42,7 +42,6 @@ const GalleryComponent = () => {
             localStorage.setItem('posts', JSON.stringify(initialData));
         }
     
-        // Now fetch the data from local storage
         const posts = JSON.parse(localStorage.getItem('posts')) || [];
         const users = JSON.parse(localStorage.getItem('users')) || [];
     
@@ -52,7 +51,6 @@ const GalleryComponent = () => {
         setLikedPosts(user ? user.likedPosts : []);
         setAllItems(posts);
         setFilteredItems(posts);
-        console.log('posts fetched', posts);
     };
 
     useEffect(() => {
@@ -60,7 +58,6 @@ const GalleryComponent = () => {
     }, []);
 
     useEffect(() => {
-        console.log('allItems', allItems);
         const filtered = allItems.filter(item =>
             item.text.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -155,12 +152,10 @@ const GalleryComponent = () => {
     
             const users = JSON.parse(localStorage.getItem('users')) || [];
             const updatedUsers = users.map(user => user.userId === currentUser.userId ? updatedUser : user);
-            console.log('updatedUsers', updatedUsers);
             localStorage.setItem('users', JSON.stringify(updatedUsers));
     
             const posts = JSON.parse(localStorage.getItem('posts')) || [];
             const updatedPosts = posts.map(item => item.id === post.id ? updatedPost : item);
-            console.log('updatedPosts', updatedPosts);
             localStorage.setItem('posts', JSON.stringify(updatedPosts));
         }
     };
@@ -179,8 +174,8 @@ const GalleryComponent = () => {
                         sortCriteria={sortCriteria}
                         handleSearchSubmit={handleSearchSubmit}
                     />
-                <div className="container-fluid px-4 mt-14 relative top-40 sm:top-24">
-                    <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4">
+                <div className="container-fluid mt-14 relative top-40 sm:top-24">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4 px-4">
                         {filteredItems.length > 0 ? (
                             filteredItems.map((item) => (
                                 <div key={item.id} className={`category-item cursor-pointer`} onClick={() => openOverlay(item)}>
@@ -197,12 +192,12 @@ const GalleryComponent = () => {
                                             <button className={`be-like flex mr-2`} onClick={(e) => { e.stopPropagation(); toggleLike(item); }}>
                                                 <div className="li-icon w-2 h-auto text-[#959595] mr-[10px] mt-[1px]">
                                                     {likedPosts.includes(item.id) 
-                                                        ? <FcLike className='w-[14px] h-auto'/>
-                                                        : <GoHeart className='w-[14px] h-auto' />
+                                                        ? <FcLike className='w-[14px] h-auto mt-[2px]'/>
+                                                        : <GoHeart className='w-[14px] h-auto mt-[2px]' />
                                                     }                                            
                                                 </div>
                                                 <span 
-                                                    className={`text-xs font-medium ${likedPosts.includes(item.id) 
+                                                    className={`text-xs font-medium mt-[2px] ${likedPosts.includes(item.id) 
                                                         ?  'text-pink-800'
                                                         : 'text-[#959595]'
                                                     }`}>
@@ -211,9 +206,9 @@ const GalleryComponent = () => {
                                             </button>
                                             <button className="be-watch flex mr-2">
                                                 <div className="wa-icon text-[#959595] mr-1 mt-[2px]">
-                                                    <PiEyeDuotone className='w-3 h-auto'/>
+                                                    <IoEyeOutline className='w-[14px] h-auto mb-[8px]'/>
                                                 </div>
-                                                <span className='text-xs font-medium text-[#959595]'>{item.watches}</span>
+                                                <span className='text-xs font-medium text-[#959595] mt-[2px]'>{item.watches}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -225,12 +220,18 @@ const GalleryComponent = () => {
                             </div>
                         )}
                     </div>
+                    <FooterComponent/>
                 </div>
+
+                
+
             </section>
 
             {selectedItem && (
                 <OverlayComponent selectedItem={selectedItem} closeOverlay={closeOverlay} />
             )}
+
+            
         </>
     );
 };

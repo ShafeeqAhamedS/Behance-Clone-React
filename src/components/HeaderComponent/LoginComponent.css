@@ -1,0 +1,19 @@
+.Toastify__toast {
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    font-size: 1rem !important;
+}
+
+.Toastify__toast--success {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+}
+
+.Toastify__toast-body {
+    display: flex;
+    align-items: center;
+}
+
+.Toastify__progress-bar {
+    background-color: #ffffff !important;
+}

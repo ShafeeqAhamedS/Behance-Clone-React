@@ -1,12 +1,12 @@
 // OverlayComponent.js
 
 import React from 'react';
-import { GoShare } from "react-icons/go";
+import { IoShare } from "react-icons/io5";
 import { IoFolderOpen } from "react-icons/io5";
 import { IoIosMail } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import { GrLike } from "react-icons/gr";
+import { AiFillLike } from "react-icons/ai";
 import PropTypes from 'prop-types';
 
 const OverlayComponent = ({ selectedItem, closeOverlay }) => {
@@ -34,13 +34,13 @@ const OverlayComponent = ({ selectedItem, closeOverlay }) => {
                     </div>
                     <div className="sidebar-icon pb-4 flex flex-col items-center">
                         <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer" >
-                            <GoShare size={24} />
+                            <IoShare size={24} />
                         </div>
                         <p className='text-xs text-gray-400'>Share</p>
                     </div>
                     <div className="sidebar-icon pb-4 flex flex-col items-center">
                         <div className="flex items-center justify-center bg-white rounded-full w-12 h-12 text-center cursor-pointer bg-blue-600">
-                            <GrLike size={24} style={{color:"white"}} />
+                            <AiFillLike size={24} style={{color:"black"}} />
                         </div>
                         <p className='text-xs text-gray-400'>Appreciate</p>
                     </div>

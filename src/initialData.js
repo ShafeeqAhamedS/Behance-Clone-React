@@ -1,5 +1,5 @@
 import aot_fortnite from './assets/gallery/aot_fortnite.png'
-import mikasa from './assets/gallery/mikasa.jpg'
+import levi from './assets/gallery/levi.jpg'
 import mikasa_blood from './assets/gallery/mikasa_blood.jpeg'
 import mikasa_family from './assets/gallery/mikasa_family.jpg'
 import gojo_geto from './assets/gallery/gojo_geto.jpg'
@@ -28,10 +28,10 @@ export const initialData = [
     },
     {
         id: 2,
-        img_url: mikasa,
-        text: 'GOAT Mikasa',
-        likes: '15054',
-        watches: '654608',
+        img_url: levi,
+        text: 'GOAT Levi',
+        likes: '246',
+        watches: '1145',
         user: 'Artistic Vision'
     },
     {
@@ -94,8 +94,8 @@ export const initialData = [
         id: 10,
         img_url: mikasa_family,
         text: 'Mikasa: What am I to you?',
-        likes: '984',
-        watches: '1154',
+        likes: '150544',
+        watches: '654608',
         user: 'A Trip to Marley'
     },
     {
