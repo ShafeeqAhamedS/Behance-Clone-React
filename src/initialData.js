@@ -78,7 +78,7 @@ export const initialData = [
         id: 8,
         img_url: fly_me_to_the_moon,
         text: 'Fly me to the Moon',
-        likes: '265',
+        likes: '950',
         watches: '1545',
         user: 'Cyberpunk: Edgerunners'
     },

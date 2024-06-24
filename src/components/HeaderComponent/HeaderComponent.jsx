@@ -24,18 +24,31 @@ const HeaderComponent = () => {
     };
 
     const handleLogin = (event) => {
-        event.preventDefault();
-        const loggedInUser = userData.find((user) => user.email === email && user.password === password);
-        if (loggedInUser) {
-          setUser(loggedInUser);
-          console.log('Logged in successfully');
-          closeLoginOverlay();
-          localStorage.setItem('user', JSON.stringify(loggedInUser.userId));
-          window.location.reload();
-        } else {
-          console.log('Incorrect email or password');
-        }
-      };
+      event.preventDefault();
+      if(!email) {
+        alert('Please enter your email');
+        return;
+      }
+      if(!password) {
+        alert('Please enter your password');
+        return;
+      }  
+      const loggedInUser = userData.find((user) => user.email === email);
+  
+      if (loggedInUser) {
+          if (loggedInUser.password === password) {
+              setUser(loggedInUser);
+              console.log('Logged in successfully');
+              closeLoginOverlay();
+              localStorage.setItem('user', JSON.stringify(loggedInUser.userId));
+              window.location.reload();
+          } else {
+              alert('Incorrect Password');
+          }
+      } else {
+          alert('Incorrect Email');
+      }
+  };
 
       useEffect(() => {
         // Check if the user is already logged in

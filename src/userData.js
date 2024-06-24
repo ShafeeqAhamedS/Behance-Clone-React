@@ -4,14 +4,14 @@ const userData = [
         "name": "Shafeeq",
         "email": "shafeeq@mail.com",
         "password": "shafeeq",
-        "likedPosts": [0, 1, 2]
+        "likedPosts": [0, 1, 2, 8]
     },
     {
         "userId": 2828,
         "name": "Sanjay",
         "email": "sanjay@mail.com",
         "password": "sanjay",
-        "likedPosts": [3, 4]
+        "likedPosts": [3, 4, 8]
     },
     {
         "userId": 2525,
