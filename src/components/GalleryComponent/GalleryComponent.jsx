@@ -174,7 +174,7 @@ const GalleryComponent = () => {
                         sortCriteria={sortCriteria}
                         handleSearchSubmit={handleSearchSubmit}
                     />
-                <div className="container-fluid mt-14 relative top-40 sm:top-24">
+                <div className="container-fluid mt-14 relative top-40 sm:top-24 mb-24">
                     <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-4 px-4">
                         {filteredItems.length > 0 ? (
                             filteredItems.map((item) => (
@@ -220,11 +220,16 @@ const GalleryComponent = () => {
                             </div>
                         )}
                     </div>
-                    <FooterComponent/>
                 </div>
 
+                {
+                    filteredItems.length > 8  
+                    ? 
+                        <FooterComponent pos={"relative"}/> 
+                    : 
+                        <FooterComponent pos={"absolute"}/>
+                }
                 
-
             </section>
 
             {selectedItem && (
